@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kalendar.js</title>
+  </head>
+  <body>
+    <div style="width: 100%; display: flex; flex-direction: row">
+      <div>
+        <input type="text" class="_date_picker_" />
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/dinaank"></script>
+    <script>
+      const _ = dinaank;
+      new _.dateSelector({
+        theme: "light",
+        el: "_date_picker_",
+        colors: {
+          hover: "rgba(135, 191, 79, 0.1)",
+          active: "#05856f",
+        },
+        events: {
+          start: new Date(2021, 05, 12),
+          end: new Date(2021, 05, 14),
+        },
+      });
+    </script>
+  </body>
+</html>

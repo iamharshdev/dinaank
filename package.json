@@ -1,0 +1,22 @@
+{
+  "name": "dinaank",
+  "version": "1.0.1",
+  "description": "A minimal date-picker library that just works.",
+  "main": "./dist/dinaank.js",
+  "scripts": {
+    "build:dev": "webpack --mode=development --watch --progress",
+    "build:prod": "webpack --mode=production"
+  },
+  "files": [
+    "dist"
+  ],
+  "author": "iamharsh.dev",
+  "license": "MIT",
+  "devDependencies": {
+    "compression-webpack-plugin": "^8.0.1",
+    "webpack-cli": "^4.7.2",
+    "css-loader": "^5.2.6",
+    "style-loader": "^3.0.0",
+    "webpack": "^5.40.0"
+  }
+}
