@@ -3,9 +3,9 @@
 Select a date with JavaScript, but that's not the only thing you can do with it. Dinaank has no dependencies and weighs in at 4.9kb gzipped! Dinaank is simple to use and looks clean and minimal. A calendar pops up and you pick a date. That's it.
 
 <ul style="list-style-type:none;display:flex;">
-  <li><img src="./screenshots/Screenshot_4.png"></li>
-  <li><img src="./screenshots/Screenshot_5.png"></li>
-  <li><img src="./screenshots/Screenshot_6.png"></li>
+  <li><img src="https://raw.githubusercontent.com/iamharshdev/dinaank/master/screenshots/Screenshot_4.png"></li>
+  <li><img src=".https://raw.githubusercontent.com/iamharshdev/dinaank/master/screenshots/Screenshot_5.png"></li>
+  <li><img src="https://raw.githubusercontent.com/iamharshdev/dinaank/master/screenshots/Screenshot_6.png"></li>
 </ul>
 
 ## Installation
@@ -80,12 +80,12 @@ const picker = new dinaank.dateSelector({
 <br>
 Define calender colors and mode.
 
-<img src="./screenshots/Screenshot_4.png">
-<img src="./screenshots/Screenshot_7.png">
+<img src=".https://raw.githubusercontent.com/iamharshdev/dinaank/master/screenshots/Screenshot_4.png">
+<img src="https://raw.githubusercontent.com/iamharshdev/dinaank/master/screenshots/Screenshot_7.png">
 
 ### **Custom color**
 
-<img src="./screenshots/Screenshot_11.png">
+<img src="https://raw.githubusercontent.com/iamharshdev/dinaank/master/screenshots/Screenshot_11.png">
 
 ```js
 const picker = new dinaank.dateSelector({
@@ -119,7 +119,7 @@ const picker = new dinaank.dateSelector({
 <br>
 An range of dates which indicate something is happening - a meeting, birthday, etc. I.e. an event.
 
-<img src="./screenshots/Screenshot_9.png">
+<img src="https://raw.githubusercontent.com/iamharshdev/dinaank/master/screenshots/Screenshot_9.png">
 
 ```js
 const picker = new dinaank.dateSelector({
@@ -137,7 +137,7 @@ const picker = new dinaank.dateSelector({
 
 This will start the calender with a date already selected.
 
-<img src="./screenshots/Screenshot_7.png">
+<img src="https://raw.githubusercontent.com/iamharshdev/dinaank/master/screenshots/Screenshot_7.png">
 
 ```js
 const picker = new dinaank.dateSelector({
@@ -153,7 +153,7 @@ const picker = new dinaank.dateSelector({
 
 This will be the minumum threshold of selectable dates. Anything prior will be unselectable.
 
-<img src="./screenshots/Screenshot_10.png">
+<img src="https://raw.githubusercontent.com/iamharshdev/dinaank/master/screenshots/Screenshot_10.png">
 
 ```js
 const picker = new dinaank.dateSelector({
@@ -179,7 +179,7 @@ const picker = new dinaank.dateSelector({
 
 **minDate and maxDate can also be used together**
 
-<img src="./screenshots/Screenshot_10.png">
+<img src="https://raw.githubusercontent.com/iamharshdev/dinaank/master/screenshots/Screenshot_10.png">
 
 ```js
 const picker = new dinaank.dateSelector({
