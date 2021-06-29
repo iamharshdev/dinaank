@@ -66,10 +66,8 @@ Callback function after a date is selected or changed by the user. It has one ar
 ```js
 const picker = new dinaank.dateSelector({
   el: "_date_picker",
-  options: {
-    onChange: (date) => {
-      // do stuff with the selected date on the calender
-    },
+  onChange: (date) => {
+    // do stuff with the selected date on the calender
   },
 });
 ```
@@ -90,12 +88,10 @@ Define calender colors and mode.
 ```js
 const picker = new dinaank.dateSelector({
   el: "_date_picker",
-  options: {
-    theme: "dark", // default theme is dark. Use dark or light
-    colors: {
-      hover: "cyan", // default colors dark: #2c437a , light: #ffab91
-      active: "blue", // default colors dark: #1f5eff , light: #f4511e
-    },
+  theme: "dark", // default theme is dark. Use dark or light
+  colors: {
+    hover: "cyan", // default colors dark: #2c437a , light: #ffab91
+    active: "blue", // default colors dark: #1f5eff , light: #f4511e
   },
 });
 ```
@@ -108,10 +104,8 @@ You can customize the list of years start year, not only start year you can also
 ```js
 const picker = new dinaank.dateSelector({
   el: "_date_picker",
-  options: {
-    startYear: 1992, // default currentYear - 80
-    endYear: 2045, // default currentYear + 40
-  },
+  startYear: 1992, // default currentYear - 80
+  endYear: 2045, // default currentYear + 40
 });
 ```
 
@@ -124,12 +118,10 @@ An range of dates which indicate something is happening - a meeting, birthday, e
 ```js
 const picker = new dinaank.dateSelector({
   el: "_date_picker",
-  options: {
-    events: {
-      start: new Date(2020, 10, 1),
-      end: new Date(2021, 1, 1),
-    }, // defaults to null
-  },
+  events: {
+    start: new Date(2020, 10, 1),
+    end: new Date(2021, 1, 1),
+  }, // defaults to null
 });
 ```
 
@@ -142,10 +134,8 @@ This will start the calender with a date already selected.
 ```js
 const picker = new dinaank.dateSelector({
   el: "_date_picker",
-  options: {
-    _day_selected: new Date(2099, 10, 1),
-    // defaults to new Date() i.e. today's date
-  },
+  _day_selected: new Date(2099, 10, 1),
+  // defaults to new Date() i.e. today's date
 });
 ```
 
@@ -158,9 +148,7 @@ This will be the minumum threshold of selectable dates. Anything prior will be u
 ```js
 const picker = new dinaank.dateSelector({
   el: "_date_picker",
-  options: {
-    minDate: new Date(2099, 10, 1), // defaults to null
-  },
+  minDate: new Date(2099, 10, 1), // defaults to null
 });
 ```
 
@@ -171,9 +159,7 @@ This will be the maximum threshold of selectable dates. Anything after it will b
 ```js
 const picker = new dinaank.dateSelector({
   el: "_date_picker",
-  options: {
-    maxDate: new Date(2099, 10, 1), // defaults to null
-  },
+  maxDate: new Date(2099, 10, 1), // defaults to null
 });
 ```
 
@@ -184,10 +170,19 @@ const picker = new dinaank.dateSelector({
 ```js
 const picker = new dinaank.dateSelector({
   el: "_date_picker",
-  options: {
-    minDate: new Date(2021, 10, 1), // defaults to null
-    maxDate: new Date(2099, 10, 1), // defaults to null
-  },
+  minDate: new Date(2021, 10, 1), // defaults to null
+  maxDate: new Date(2099, 10, 1), // defaults to null
+});
+```
+
+**readOnlySelector**
+
+This will make input selector readonly means user won't be able to type anything thus preventing invalid dates entered by user.
+
+```js
+const picker = new dinaank.dateSelector({
+  el: "_date_picker",
+  readOnlySelector: false, // defaults to true
 });
 ```
 
