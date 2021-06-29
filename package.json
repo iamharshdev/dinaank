@@ -1,6 +1,6 @@
 {
   "name": "dinaank",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A minimal date-picker library that just works.",
   "main": "./dist/dinaank.js",
   "scripts": {
@@ -12,6 +12,23 @@
   ],
   "author": "iamharsh.dev",
   "license": "MIT",
+  "email": "me@iamharsh.dev",
+  "keywords": [
+    "datepicker",
+    "date range picker",
+    "date range",
+    "date range calendar",
+    "date picker",
+    "date",
+    "picker",
+    "calendar",
+    "javascript",
+    "vanilla"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/iamharshdev/dinaank"
+  },
   "devDependencies": {
     "compression-webpack-plugin": "^8.0.1",
     "webpack-cli": "^4.7.2",
