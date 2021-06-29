@@ -17,6 +17,7 @@ export class dateSelector {
       theme: "dark",
       events: null,
       dates: [],
+      readOnlySelector: true,
       years: [],
       parent_element: null,
       colors: null,
@@ -39,6 +40,13 @@ export class dateSelector {
     // get parent to date input selector
     this.parent_element = $(`.${this.el}`)[0].parentElement;
 
+    // populate selector with default date
+    $(`.${this.el}`)[0].value = this._day_selected.toDateString();
+
+    if (this.readOnlySelector) {
+      $(`.${this.el}`)[0].setAttribute("readonly", true);
+    }
+
     // generate dates of the month based on default date
     this.dates = this._generate_weeks_days_dates();
 
@@ -49,7 +57,10 @@ export class dateSelector {
    * @param {Date} value
    */
   set select_new_date(value) {
+    // set _day_selected value
+
     this._day_selected = value;
+
     this.dates = this._generate_weeks_days_dates();
     this._generate_calender_();
   }
@@ -453,11 +464,7 @@ export class dateSelector {
     _month_selector.innerHTML = "";
     this.months.forEach((month, index) => {
       _month_selector.innerHTML += `
-      <li class="_month_child ${
-        this._is_date_disabled(index, "month") ? "" : "disabled"
-      }" data="${
-        this._is_date_disabled(index, "month") ? index : null
-      }">${month}</li>`;
+      <li class="_month_child" data="${index}">${month}</li>`;
     });
   }
   /**
@@ -499,12 +506,20 @@ export class dateSelector {
    */
 
   _generate_calender_() {
-    //
-    // throw date selected to onChange function
+    /**
+     *
+     * throw date selected to onChange function
+     */
     if (this.onChange != null) {
       this.onChange(this._day_selected);
     }
+
+    /**
+     * populate selector with date selected
+     */
+
     $(`.${this.el}`)[0].value = this._day_selected.toDateString();
+
     // get dates container div
     const _date_picker = $(this._date_picker);
     const _date_selector = $(this._date_selector)[0];
@@ -572,7 +587,7 @@ export class dateSelector {
     // set active date, month, year in calender widget
     setTimeout(() => {
       this._set_active_date();
-    }, 200);
+    }, 100);
   }
 
   /**

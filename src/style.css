@@ -17,6 +17,7 @@
   grid-gap: 14px;
   padding: 12px;
   width: 300px;
+  z-index: 999 !important;
   transition: all cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 ._calender_wrapper ::-webkit-scrollbar {
@@ -108,23 +109,24 @@
 ._months_list,
 ._years_list {
   background-color: var(--_bg_color);
-  position: absolute;
+  position: fixed;
   padding: 10px;
-  top: 90px;
+  top: 120px;
   list-style: none;
   border: 1px solid var(--_font_color);
   border-radius: 10px;
   color: var(--_white_color);
-  width: 83.5%;
+  min-width: 265px;
+  max-width: 265px;
   overflow: scroll;
   display: grid;
-  z-index: 99999;
+  z-index: 99999 !important;
   left: 14px;
   gap: 6px;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
 }
 ._years_list {
-  top: 70px;
+  top: 110px;
   max-height: 180px;
 }
 ._years_list::-webkit-scrollbar,
@@ -158,6 +160,26 @@
   background-color: var(--_active_bg);
 }
 
+._change_month {
+  padding: 8px 12px;
+  border: 1px solid var(--_bg_color);
+  border-radius: 10px;
+  width: 10px;
+  cursor: pointer;
+  color: var(--_font_color);
+  background-color: var(--_bg_color);
+}
+
+._change_month svg,
+._chevron_svg {
+  color: var(--_active_bg);
+}
+
+._next_month._chevron_svg,
+._next_month._change_month svg {
+  transform: translate(180deg);
+}
+
 ._date_child:hover,
 ._current_month:hover,
 ._month_child:hover,
@@ -168,14 +190,8 @@
   border: 1px solid var(--_active_bg);
   background-color: var(--_hover_bg);
 }
-._change_month {
-  padding: 10px;
-  border: 1px solid var(--_bg_color);
-  border-radius: 10px;
-  width: 10px;
-  cursor: pointer;
-  color: var(--_font_color);
-  background-color: var(--_bg_color);
+._chevron_svg:hover {
+  color: var(--_active_bg);
 }
 ._calender_header {
   display: flex;
