@@ -197,6 +197,18 @@ const picker = new dinaank.dateSelector({
     "😝",
     "😮",
   ],
+  // default [ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+});
+```
+
+**week days**
+
+You can customize the display of the week days at the top of the calender widget by providing an array of 7 strings in the order written below:
+
+```js
+const picker = new dinaank.dateSelector({
+  weekdays: ["😌", "🥶", "😌", "😐", "😝", "🤧", "😍"],
+  // default ["Su","Mo","Tu","We","Th","Fr","Sa"]
 });
 ```
 

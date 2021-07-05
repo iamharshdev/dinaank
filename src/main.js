@@ -16,6 +16,7 @@ export class dateSelector {
       onChange: null,
       theme: "dark",
       events: null,
+      weekdays: [],
       dates: [],
       readOnlySelector: true,
       years: [],
@@ -258,6 +259,16 @@ export class dateSelector {
 
   /**
    *
+   * @returns list of weekdays in a month
+   */
+
+  _generate_weekdays() {
+    const _weekdays = ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"];
+    return _weekdays;
+  }
+
+  /**
+   *
    * @returns list of months in a year based on options passed
    */
 
@@ -457,6 +468,27 @@ export class dateSelector {
   }
 
   /**
+   * Add weeks as a list in the widget
+   */
+
+  _add_weeks_list() {
+    /**
+     * get week days list
+     */
+
+    if (this.weekdays.length === 0) {
+      this.weekdays = this._generate_weekdays();
+    }
+
+    const _week_days_selector = $("._week_Days")[0];
+    _week_days_selector.innerHTML = "";
+    this.weekdays.forEach((element) => {
+      _week_days_selector.innerHTML += `<span>${element}</span>`;
+    });
+    console.log(_week_days_selector);
+  }
+
+  /**
    * Add months as a list in the widget
    */
 
@@ -610,6 +642,7 @@ export class dateSelector {
       $("._calender_dialog")[0].remove();
     }
     this.parent_element.innerHTML += widget();
+    this._add_weeks_list();
     this._generate_calender_();
     this._add_months_list();
     this._add_years_list();
