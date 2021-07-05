@@ -17,6 +17,8 @@
   grid-gap: 14px;
   padding: 12px;
   width: 300px;
+  max-width: 300px;
+  min-width: 300px;
   z-index: 999 !important;
   transition: all cubic-bezier(0.075, 0.82, 0.165, 1);
 }
@@ -109,15 +111,15 @@
 ._months_list,
 ._years_list {
   background-color: var(--_bg_color);
-  position: fixed;
+  position: absolute;
   padding: 10px;
-  top: 120px;
+  top: 100px;
   list-style: none;
   border: 1px solid var(--_font_color);
   border-radius: 10px;
   color: var(--_white_color);
-  min-width: 265px;
-  max-width: 265px;
+  min-width: 250px;
+  max-width: 250px;
   overflow: scroll;
   display: grid;
   z-index: 99999 !important;
@@ -126,7 +128,7 @@
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
 }
 ._years_list {
-  top: 110px;
+  top: 70px;
   max-height: 180px;
 }
 ._years_list::-webkit-scrollbar,
@@ -139,6 +141,7 @@
   border: 1px solid var(--_bg_color);
   font-size: 12px;
   padding: 2px 4px;
+  text-align: center;
   cursor: pointer;
   border-radius: 5px;
 }

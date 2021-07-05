@@ -175,6 +175,31 @@ const picker = new dinaank.dateSelector({
 });
 ```
 
+**months**
+
+You can customize the display of the months name at the top of the calender widget by providing an array of 12 strings in the order written below:
+
+<img src="https://raw.githubusercontent.com/iamharshdev/dinaank/master/screenshots/custom_months.png">
+
+```js
+const picker = new dinaank.dateSelector({
+  months: [
+    "😀",
+    "😂",
+    "😎",
+    "😍",
+    "🤩",
+    "😜",
+    "😬",
+    "😳",
+    "🤪",
+    "🤓 ",
+    "😝",
+    "😮",
+  ],
+});
+```
+
 **readOnlySelector**
 
 This will make input selector readonly means user won't be able to type anything thus preventing invalid dates entered by user.

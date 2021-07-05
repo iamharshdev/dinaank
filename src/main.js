@@ -6,8 +6,8 @@ export class dateSelector {
   constructor(options) {
     // define some default options fallback
     const defaults = {
-      startYear: new Date().getFullYear() - 80,
-      endYear: new Date().getFullYear() + 40,
+      startYear: null,
+      endYear: null,
       el: "_date_picker_",
       monthName: true,
       fullMonthName: false,
@@ -36,6 +36,13 @@ export class dateSelector {
       var d = new Date(this.getFullYear(), this.getMonth() + 1, 0);
       return d.getDate();
     };
+
+    /***
+     * set default startYear and endYear to be based on date selected
+     */
+
+    this.startYear = this._current_year() - 50;
+    this.endYear = this._current_year() + 50;
 
     // get parent to date input selector
     this.parent_element = $(`.${this.el}`)[0].parentElement;
@@ -255,7 +262,7 @@ export class dateSelector {
    */
 
   _generate_months() {
-    const _months = [];
+    let _months = [];
     const monthNames = [
       "January",
       "February",
@@ -270,20 +277,25 @@ export class dateSelector {
       "November",
       "December",
     ];
-    for (let i = 0; i < 12; i++) {
-      /**
-       * Checks for full month name option
-       * Based on that push month to array
-       */
+    if (!this.months.length) {
+      for (let i = 0; i < 12; i++) {
+        /**
+         * Checks for full month name option
+         * Based on that push month to array
+         */
 
-      _months.push(
-        this.monthName
-          ? this.fullMonthName
-            ? monthNames[i]
-            : monthNames[i].slice(0, 3)
-          : i + 1
-      );
+        _months.push(
+          this.monthName
+            ? this.fullMonthName
+              ? monthNames[i]
+              : monthNames[i].slice(0, 3)
+            : i + 1
+        );
+      }
+    } else {
+      _months = this.months;
     }
+
     return _months;
   }
   /**
