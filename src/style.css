@@ -7,47 +7,57 @@
   --_hover_bg: #2c437a;
   --_white_color: #fff;
   --_dis_color: rgba(204, 204, 204, 0.418);
+  --in_range: rgba(31, 94, 255, 0.75);
+  --range_color: #fff;
 }
+
 ._calender_wrapper {
   background: var(--_calender_bg);
-  border: 1px solid var(--_font_color);
   box-sizing: border-box;
-  border-radius: 14px;
+  border-radius: 8px;
   position: absolute;
+  box-shadow: 0 32px 32px -8px rgba(0, 0, 0, 0.08),
+    0 0 32px -8px rgba(0, 0, 0, 0.12), 0 0 1px rgba(0, 0, 0, 0.2);
   grid-gap: 14px;
-  padding: 12px;
-  width: 300px;
-  max-width: 300px;
-  min-width: 300px;
-  z-index: 999 !important;
+  padding: 10px;
+  width: fit-content;
+  max-width: fit-content;
+  min-width: fit-content;
+  z-index: 1000000 !important;
   transition: all cubic-bezier(0.075, 0.82, 0.165, 1);
 }
+
 ._calender_wrapper ::-webkit-scrollbar {
   display: none;
   width: 0;
   height: 0;
 }
+
 ._date_child,
 ._month_child,
 ._year_child {
   margin: 2px 0;
 }
+
 ._date_selected {
   background-color: black;
   color: var(--_white_color);
-  border-radius: 8px;
+  border-radius: 6px;
   transition: 0.3s ease;
   box-shadow: 0 0 50px rgba(0, 0, 0, 0.5);
 }
+
 ._months_list {
   list-style: none;
   margin: 0;
   padding: 0;
 }
+
 ._week_Days {
   color: var(--_font_color);
   margin-bottom: 14px;
 }
+
 ._week_Days,
 ._date_selectors {
   display: grid;
@@ -55,6 +65,7 @@
   grid-gap: 8px;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
 }
+
 ._date_child {
   width: 30px;
   height: 30px;
@@ -68,8 +79,9 @@
   justify-content: center;
   align-items: center;
   background: var(--_bg_color);
-  border-radius: 8px;
+  border-radius: 6px;
 }
+
 ._current_month,
 ._current_year {
   width: max-content;
@@ -84,57 +96,68 @@
   justify-content: center;
   align-items: center;
   background: var(--_bg_color);
-  border-radius: 8px;
+  border-radius: 6px;
 }
+
 ._calender_grid {
   display: grid;
 }
+
 ._grid_cols_1 {
   grid-template-columns: repeat(1, 1fr);
 }
+
 ._grid_cols_2 {
   grid-template-columns: repeat(2, max-content);
+}
+._grid_cols_3 {
+  grid-template-columns: repeat(3, max-content);
 }
 ._grid_gap_2 {
   grid-gap: 10px;
   gap: 10px;
 }
+
 ._grid_center {
   place-items: center;
 }
+
 ._calender_display_hidden {
   visibility: hidden;
 }
+
 ._week_Days span {
   font-size: 12px;
 }
+
 ._months_list,
 ._years_list {
   background-color: var(--_bg_color);
   position: absolute;
   padding: 10px;
-  top: 100px;
+  top: 60px;
   list-style: none;
-  border: 1px solid var(--_font_color);
   border-radius: 10px;
   color: var(--_white_color);
   min-width: 250px;
   max-width: 250px;
   overflow: scroll;
+  height: 220px;
   display: grid;
-  z-index: 99999 !important;
-  left: 14px;
+  z-index: 1000099 !important;
   gap: 6px;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
 }
+
 ._years_list {
-  top: 70px;
-  max-height: 180px;
+  top: 40px;
 }
+
 ._years_list::-webkit-scrollbar,
 ._months_list::-webkit-scrollbar {
   display: none;
 }
+
 ._month_child,
 ._year_child {
   color: var(--_font_color);
@@ -142,20 +165,29 @@
   font-size: 12px;
   padding: 2px 4px;
   text-align: center;
+  display: grid;
+  place-items: center;
   cursor: pointer;
   border-radius: 5px;
 }
+
+._year_child {
+  height: 35px;
+}
+
 ._week_row {
   width: 25px;
   display: grid;
   grid-template-columns: 1fr;
 }
+
 .disabled {
   color: var(--_dis_color);
   opacity: 20%;
   background: var(--_dis_bg);
   cursor: not-allowed;
 }
+
 ._date_child.active,
 ._month_child.active,
 ._year_child.active {
@@ -189,22 +221,27 @@
 ._year_child:hover,
 ._current_year:hover,
 ._change_month:hover {
-  color: var(--_active_bg);
   border: 1px solid var(--_active_bg);
+  color: var(--_white_color) !important;
   background-color: var(--_hover_bg);
 }
-._chevron_svg:hover {
-  color: var(--_active_bg);
+
+svg:hover,
+._change_month:hover svg {
+  color: var(--_white_color) !important;
 }
+
 ._calender_header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   place-items: revert;
 }
+
 ._wid100 {
   width: 100%;
 }
+
 ._event {
   width: 4px;
   height: 4px;
@@ -213,6 +250,18 @@
   margin-top: 15px;
   margin-left: 2px;
 }
+
 .active ._event {
   background: white;
+}
+
+.in--range {
+  background: var(--in_range);
+  color: var(--range_color);
+}
+.start_date,
+.end_date {
+  background: white;
+  padding: 8px;
+  border-radius: 6px;
 }
