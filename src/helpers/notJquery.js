@@ -16,10 +16,8 @@ const $create = (type, classes) => {
   return elem;
 };
 
-export {
-  $,
-  $attr,
-  $class,
-  $hasClass,
-  $create,
+const $append = (parent, child) => {
+  parent.appendChild(child);
 };
+
+export { $, $attr, $class, $hasClass, $create, $append };
