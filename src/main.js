@@ -1,41 +1,22 @@
-import { widget } from "./helpers/widget";
+import { appendWidget } from "./helpers/widget";
+import { defaults } from "./helpers/objects";
 import { $, $attr, $class, $hasClass } from "./helpers/notJquery";
+import { toIntDate } from "./helpers/dates";
 import "./style.css";
+
+let parent_el;
 
 export class dateSelector {
   constructor(options) {
     // define some default options fallback
-    const defaults = {
-      startYear: null,
-      endYear: null,
-      el: "_date_picker_",
-      monthName: true,
-      fullMonthName: false,
-      minDate: null,
-      maxDate: null,
-      onChange: null,
-      theme: "dark",
-      events: null,
-      weekdays: [],
-      dates: [],
-      readOnlySelector: true,
-      years: [],
-      parent_element: null,
-      colors: null,
-      _date_picker: "._main_date_wrapper",
-      _date_selector: "._date_selectors",
-      months: [],
-      _day_selected: new Date(),
-    };
-
     // assign defaults as base and user selected options
-    this.options = Object.assign({}, defaults, options);
+
+    this.options = Object.assign({}, defaults(), options);
     Object.assign(this, this.options);
 
     // add a new date method to check days in a month
     Date.prototype.monthDays = function () {
-      var d = new Date(this.getFullYear(), this.getMonth() + 1, 0);
-      return d.getDate();
+      return new Date(this.getFullYear(), this.getMonth() + 1, 0).getDate();
     };
 
     /***
@@ -45,14 +26,18 @@ export class dateSelector {
     this.startYear = this._current_year() - 50;
     this.endYear = this._current_year() + 50;
 
+    parent_el = $(`.${this.el}`)[0];
+
     // get parent to date input selector
-    this.parent_element = $(`.${this.el}`)[0].parentElement;
+    this.parent_element = parent_el.parentElement;
 
     // populate selector with default date
-    $(`.${this.el}`)[0].value = this._day_selected.toDateString();
+    this._set_input_value(
+      this.canSelectRange ? "NA - NA" : toIntDate(this._day_selected)
+    );
 
     if (this.readOnlySelector) {
-      $(`.${this.el}`)[0].setAttribute("readonly", true);
+      parent_el.setAttribute("readonly", true);
     }
 
     // generate dates of the month based on default date
@@ -61,32 +46,36 @@ export class dateSelector {
     // initialize the datepicker widget
     this._init();
   }
+
   /**
    * @param {Date} value
    */
   set select_new_date(value) {
     // set _day_selected value
-
     this._day_selected = value;
-
     this.dates = this._generate_weeks_days_dates();
     this._generate_calender_();
   }
-  _init() {
-    /* 
-    
-    this sets the default color scheme to calender dialog
 
+  /**
+   * @param {Object} value
+   */
+  set select_new_range(value) {
+    this.rangeSelected = value;
+    this.dates = this._generate_weeks_days_dates();
+    this._generate_calender_();
+  }
+
+  _init() {
+    /*
+    this sets the default color scheme to calender dialog
     */
 
     this._set_color_theme();
 
-    /* 
-    
+    /*
     Setup click listeners for calender elements
-    
     */
-
     document.addEventListener("click", (e) => {
       // get element clicked
       const _elem_clicked = e.target;
@@ -97,25 +86,69 @@ export class dateSelector {
           this._create_date_picker_dialog();
         }
       }
-
       // if month toggler clicked
-      if ($hasClass(_elem_clicked, "_current_month")) {
+      else if (
+        $hasClass(_elem_clicked, "_current_month") &&
+        !this.canSelectRange
+      ) {
         $("._years_list")[0].classList.add("_calender_display_hidden");
         $class($("._months_list")[0], "_calender_display_hidden");
-      } else if ($hasClass(_elem_clicked, "_current_year")) {
+      } else if (
+        $hasClass(_elem_clicked, "_current_year") &&
+        !this.canSelectRange
+      ) {
         $("._months_list")[0].classList.add("_calender_display_hidden");
         $class($("._years_list")[0], "_calender_display_hidden");
       }
 
       // if any date clicked
-      if ($hasClass(_elem_clicked, "_date_child")) {
+      else if ($hasClass(_elem_clicked, "_date_child")) {
         if (!$hasClass(_elem_clicked, "disabled")) {
-          this.select_new_date = new Date($attr(_elem_clicked, "data"));
+          // store the date clicked by user
+          const date_clicked = new Date($attr(_elem_clicked, "data"));
+
+          // if range selector enabled
+          if (this.canSelectRange) {
+            // get the range start date
+            const start = new Date(this.rangeSelected.start);
+            if (
+              this._format_date_string(start) ===
+              this._format_date_string(date_clicked)
+            ) {
+              /**
+               * If start date clicked twice set start and end date null
+               * so that user can select different start and end date of choice
+               */
+              this.select_new_range = {
+                start: null,
+                end: null,
+              };
+            } else {
+              /**
+               * If start date is null then set selected as start date && end date as null
+               * If start date is already selected set date clicked as end date
+               */
+              this.select_new_range = {
+                start: this.rangeSelected.start
+                  ? this.rangeSelected.start
+                  : date_clicked,
+                end: this.rangeSelected.start ? date_clicked : null,
+              };
+            }
+          }
+
+          // select a single date if range selector is disabled
+          if (!this.canSelectRange) {
+            this.select_new_date = date_clicked;
+          }
         }
       }
 
       // if new month selected
-      if ($hasClass(_elem_clicked, "_month_child")) {
+      else if (
+        $hasClass(_elem_clicked, "_month_child") &&
+        !this.canSelectRange
+      ) {
         if (!$hasClass(_elem_clicked, "disabled")) {
           this.select_new_date = new Date(
             this._day_selected.setMonth($attr(_elem_clicked, "data"))
@@ -124,7 +157,10 @@ export class dateSelector {
       }
 
       // if year changed
-      if ($hasClass(_elem_clicked, "_year_child")) {
+      else if (
+        $hasClass(_elem_clicked, "_year_child") &&
+        !this.canSelectRange
+      ) {
         if (!$hasClass(_elem_clicked, "disabled")) {
           this.select_new_date = new Date(
             this._day_selected.setFullYear($attr(_elem_clicked, "data"))
@@ -133,24 +169,20 @@ export class dateSelector {
       }
 
       // handle previous month button clicks
-      if ($hasClass(_elem_clicked, "_previous_month")) {
+      else if ($hasClass(_elem_clicked, "_previous_month")) {
         this.select_new_date = new Date(
           this._day_selected.setMonth(this._day_selected.getMonth() - 1)
         );
-      }
-
-      // handle next month button clicks
-      if ($hasClass(_elem_clicked, "_next_month")) {
+      } else if ($hasClass(_elem_clicked, "_next_month")) {
+        // handle next month button clicks
         this.select_new_date = new Date(
           this._day_selected.setMonth(this._day_selected.getMonth() + 1)
         );
       } else if (this._any_other_elem_clicked(_elem_clicked)) {
         /*
-
-      if user clicked outside of calender pickup hide the calender picker
-      this condition checks for item clicked class if it is any of widget class or not
-
-      */
+        if user clicked outside of calender pickup hide the calender picker
+        this condition checks for item clicked class if it is any of widget class or not
+        */
         $("._calender_dialog")[0].classList.add("_calender_display_hidden");
       }
     });
@@ -158,9 +190,9 @@ export class dateSelector {
 
   _any_other_elem_clicked(clicked) {
     /*
-    
+
     list of all classes used in calender widget
-    
+
     */
     const classes_defaults = [
       "_next_month",
@@ -185,16 +217,31 @@ export class dateSelector {
     }
     return _has;
   }
+
   _set_color_theme() {
     const r = $(":root")[0];
+
+    /**
+     * set calender widget bg color
+     */
     r.style.setProperty(
       "--_bg_color",
-      this.theme === "dark" ? "#3c414a" : "#f6f6f6"
+      this.theme === "dark" ? "#3c414a" : "rgb(245, 245, 245)"
     );
+
+    /**
+     * set _calender_bg color
+     */
+
     r.style.setProperty(
       "--_calender_bg",
-      this.theme === "dark" ? "#323741" : "#fefefe"
+      this.theme === "dark" ? "#323741" : "rgb(245, 245, 245)"
     );
+
+    /**
+     * set hover elems bg color
+     */
+
     r.style.setProperty(
       "--_hover_bg",
       this.colors
@@ -203,6 +250,11 @@ export class dateSelector {
         ? "#2c437a"
         : "#ffab91"
     );
+
+    /**
+     * set active items bg color
+     */
+
     r.style.setProperty(
       "--_active_bg",
       this.colors
@@ -211,6 +263,26 @@ export class dateSelector {
         ? "#1f5eff"
         : "#f4511e"
     );
+
+    /**
+     * Set range dates bg color
+     */
+    r.style.setProperty(
+      "--in_range",
+      this.colors && this.colors.range
+        ? this.colors.range
+        : this.theme === "dark"
+        ? "rgba(31,94,255,0.35)"
+        : "rgba(244,81,30,0.35)"
+    );
+
+    /**
+     * Set range dates text color
+     */
+
+    if (this.colors && this.colors.rangeColor) {
+      r.style.setProperty("--range_color", this.colors.rangeColor);
+    }
   }
 
   /**
@@ -263,8 +335,7 @@ export class dateSelector {
    */
 
   _generate_weekdays() {
-    const _weekdays = ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"];
-    return _weekdays;
+    return ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"];
   }
 
   /**
@@ -309,6 +380,7 @@ export class dateSelector {
 
     return _months;
   }
+
   /**
    *
    * @returns list of years lies in b/w starYear and endYear passed in options
@@ -352,7 +424,9 @@ export class dateSelector {
    */
 
   _format_date_string(_date) {
-    return `${_date.getFullYear() - _date.getMonth() - _date.getDate()}`;
+    return _date
+      ? `${_date.getFullYear()}-${_date.getMonth()}-${_date.getDate()}`
+      : null;
   }
 
   /**
@@ -374,6 +448,18 @@ export class dateSelector {
   }
 
   /**
+   * Checks for is date passed lies in the range selected
+   * @param {Date} _date_to_check
+   * @returns {Boolean}
+   * */
+  _lies_in_range_selected(_date_to_check) {
+    return this.canSelectRange
+      ? new Date(_date_to_check) > new Date(this.rangeSelected.start) &&
+          new Date(_date_to_check) < new Date(this.rangeSelected.end)
+      : false;
+  }
+
+  /**
    * To set active date,year,month in the calender
    */
 
@@ -383,45 +469,71 @@ export class dateSelector {
      */
 
     const _date_selector = $("._date_selectors")[0].childNodes;
+
     _date_selector.forEach((item) => {
-      const _item_date = $attr(item, "data");
+      const _item_date = this._format_date_string(
+        new Date($attr(item, "data"))
+      );
+
       if (
-        this._format_date_string(new Date(_item_date)) ===
-        this._format_date_string(this._day_selected)
+        !this.canSelectRange
+          ? _item_date === this._format_date_string(this._day_selected)
+          : _item_date === this._format_date_string(this.rangeSelected.start) ||
+            _item_date === this._format_date_string(this.rangeSelected.end)
       ) {
         item.classList.add("active");
+        item.classList.remove("in--range");
       } else {
         item.classList.remove("active");
       }
-    });
 
-    /**
-     * set active month
-     */
-
-    const _month_child = $("._month_child");
-    _month_child.forEach((month) => {
-      const _data_month = $attr(month, "data");
-      if (parseInt(_data_month) === this._day_selected.getMonth()) {
-        month.classList.add("active");
-      } else {
-        month.classList.remove("active");
+      /**
+       * Set in--range class on dates lies b/w the range selected and remove active class
+       */
+      if (
+        this.canSelectRange &&
+        this.rangeSelected.start &&
+        this.rangeSelected.end &&
+        this._lies_in_range_selected(new Date($attr(item, "data")))
+      ) {
+        item.classList.remove("active");
+        item.classList.add("in--range");
       }
     });
 
     /**
-     * set active year
-     */
+     * Set active month and year only if range selector is disabled
+     * */
 
-    const _year_child = $("._year_child");
-    _year_child.forEach((year) => {
-      const _date_year = $attr(year, "data");
-      if (parseInt(_date_year) === this._day_selected.getFullYear()) {
-        year.classList.add("active");
-      } else {
-        year.classList.remove("active");
-      }
-    });
+    if (!this.canSelectRange) {
+      /**
+       * set active month
+       */
+
+      const _month_child = $("._month_child");
+      _month_child.forEach((month) => {
+        const _data_month = $attr(month, "data");
+        if (parseInt(_data_month) === this._day_selected.getMonth()) {
+          month.classList.add("active");
+        } else {
+          month.classList.remove("active");
+        }
+      });
+
+      /**
+       * set active year
+       */
+
+      const _year_child = $("._year_child");
+      _year_child.forEach((year) => {
+        const _date_year = $attr(year, "data");
+        if (parseInt(_date_year) === this._day_selected.getFullYear()) {
+          year.classList.add("active");
+        } else {
+          year.classList.remove("active");
+        }
+      });
+    }
   }
 
   /**
@@ -485,7 +597,6 @@ export class dateSelector {
     this.weekdays.forEach((element) => {
       _week_days_selector.innerHTML += `<span>${element}</span>`;
     });
-    console.log(_week_days_selector);
   }
 
   /**
@@ -499,8 +610,7 @@ export class dateSelector {
     this.months = this._generate_months();
 
     /*
-    get ._months_list container div
-    push months.
+    get ._months_list container div push months.
     Disable if month doesn't satisfy max and min date
     */
 
@@ -511,6 +621,7 @@ export class dateSelector {
       <li class="_month_child" data="${index}">${month}</li>`;
     });
   }
+
   /**
    * Add years as a list in the widget
    */
@@ -552,17 +663,27 @@ export class dateSelector {
   _generate_calender_() {
     /**
      *
-     * throw date selected to onChange function
+     * If range's start date is greater than ranges' end date swap end date with start date.
+     *
      */
-    if (this.onChange != null) {
-      this.onChange(this._day_selected);
+    if (
+      this.rangeSelected.start &&
+      this.rangeSelected.end &&
+      this.rangeSelected.start > this.rangeSelected.end
+    ) {
+      this.rangeSelected = {
+        start: this.rangeSelected.end,
+        end: this.rangeSelected.start,
+      };
     }
 
     /**
-     * populate selector with date selected
+     *
+     * throw date selected to onChange function
      */
-
-    $(`.${this.el}`)[0].value = this._day_selected.toDateString();
+    if (this.onChange != null) {
+      this.onChange(this._day_selected, this.rangeSelected);
+    }
 
     // get dates container div
     const _date_picker = $(this._date_picker);
@@ -628,11 +749,27 @@ export class dateSelector {
       });
     });
 
+    /**
+     * populate selector with date selected
+     */
+    this._set_input_value(
+      this.canSelectRange
+        ? `${
+            this.rangeSelected.start
+              ? toIntDate(this.rangeSelected.start)
+              : "NA"
+          } - ${
+            this.rangeSelected.end ? toIntDate(this.rangeSelected.end) : "NA"
+          }`
+        : toIntDate(this._day_selected)
+    );
     // set active date, month, year in calender widget
-    setTimeout(() => {
-      this._set_active_date();
-    }, 100);
+    this._set_active_date();
   }
+
+  _set_input_value = (value) => {
+    document.querySelector("._date_picker_").value = value;
+  };
 
   /**
    * This creates the calender widget and push it to DOM
@@ -641,7 +778,7 @@ export class dateSelector {
     if ($("._calender_dialog")[0]) {
       $("._calender_dialog")[0].remove();
     }
-    this.parent_element.innerHTML += widget();
+    appendWidget(this.parent_element);
     this._add_weeks_list();
     this._generate_calender_();
     this._add_months_list();

@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Kalendar.js</title>
+    <title>dinaank.js</title>
   </head>
   <body>
     <div style="width: 100%; display: flex; flex-direction: row">
@@ -13,34 +13,20 @@
       </div>
     </div>
 
-    <script src="https://unpkg.com/dinaank"></script>
+    <script src="../dist/dinaank.js"></script>
     <script>
-      const _ = dinaank;
-      new _.dateSelector({
+      new dinaank.dateSelector({
         theme: "light",
         el: "_date_picker_",
         colors: {
-          hover: "rgba(135, 191, 79, 0.1)",
-          active: "#05856f",
+          hover: "rgb(0, 0, 0)",
+          active: "#000",
+          range: "rgba(91,91,91,0.13)",
+          rangeColor: "#000",
         },
-        weekdays: ["😌", "🥶", "😌", "😐", "😝", "🤧", "😍"],
-        months: [
-          "😀",
-          "😂",
-          "😎",
-          "😍",
-          "🤩",
-          "😜",
-          "😬",
-          "😳",
-          "🤪",
-          "🤓 ",
-          "😝",
-          "😮",
-        ],
-        events: {
-          start: new Date(2021, 05, 12),
-          end: new Date(2021, 05, 14),
+        canSelectRange: true,
+        onChange: (date, rangeSelected) => {
+          console.log(date, rangeSelected);
         },
       });
     </script>

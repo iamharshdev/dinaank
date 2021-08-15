@@ -223,6 +223,27 @@ const picker = new dinaank.dateSelector({
 });
 ```
 
+**date range selection**
+
+You can also use our date range picker calender. It's simple to implement just pass canSelectRange as true in options while calling the constructor.
+
+<img src=".https://raw.githubusercontent.com/iamharshdev/dinaank/master/screenshots/Screenshot_5.png">
+
+```js
+const picker = new dinaank.dateSelector({
+  el: "_date_picker_",
+  canSelectRange: true, // defaults to false
+  onChange: (date, rangeSelected) => {
+    // here date will be new Date()
+    // rangeSelected is a object with start and end dates selected by user
+    /**
+     * { start: new Date(), end: new Date() }
+    */
+    console.log(rangeSelected);
+  },
+});
+```
+
 **MIT License**
 
 Copyright (c) 2021 Harsh Vardhan Goswami
