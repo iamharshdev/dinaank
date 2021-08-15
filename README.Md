@@ -4,7 +4,7 @@ Select a date with JavaScript, but that's not the only thing you can do with it.
 
 <ul style="list-style-type:none;display:flex;">
   <li><img src="https://raw.githubusercontent.com/iamharshdev/dinaank/master/screenshots/Screenshot_4.png"></li>
-  <li><img src=".https://raw.githubusercontent.com/iamharshdev/dinaank/master/screenshots/Screenshot_5.png"></li>
+  <li><img src="https://raw.githubusercontent.com/iamharshdev/dinaank/master/screenshots/Screenshot_5.png"></li>
   <li><img src="https://raw.githubusercontent.com/iamharshdev/dinaank/master/screenshots/Screenshot_6.png"></li>
 </ul>
 
@@ -227,7 +227,7 @@ const picker = new dinaank.dateSelector({
 
 You can also use our date range picker calender. It's simple to implement just pass canSelectRange as true in options while calling the constructor.
 
-<img src=".https://raw.githubusercontent.com/iamharshdev/dinaank/master/screenshots/Screenshot_5.png">
+<img src="https://raw.githubusercontent.com/iamharshdev/dinaank/master/screenshots/Screenshot_5.png">
 
 ```js
 const picker = new dinaank.dateSelector({
