@@ -13,6 +13,7 @@ const defaults = () => {
     events: null,
     weekdays: [],
     dates: [],
+    supportSelector: null,
     readOnlySelector: false,
     years: [],
     parent_element: null,

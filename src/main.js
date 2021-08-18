@@ -73,7 +73,13 @@ export class dateSelector {
     document.addEventListener("click", (e) => {
       // get element clicked
       const _elem_clicked = e.target;
-      if ($hasClass(_elem_clicked, this.el)) {
+      if (
+        $hasClass(_elem_clicked, this.el) ||
+        $hasClass(
+          _elem_clicked,
+          this.supportSelector ? this.supportSelector : this.el
+        )
+      ) {
         if ($("._calender_dialog")[0]) {
           $class($("._calender_dialog")[0], "_calender_display_hidden");
         } else {
@@ -94,7 +100,6 @@ export class dateSelector {
         $("._months_list")[0].classList.add("_calender_display_hidden");
         $class($("._years_list")[0], "_calender_display_hidden");
       }
-
       // if any date clicked
       else if ($hasClass(_elem_clicked, "_date_child")) {
         if (!$hasClass(_elem_clicked, "disabled")) {
@@ -147,6 +152,8 @@ export class dateSelector {
           this.select_new_date = new Date(
             this._day_selected.setMonth($attr(_elem_clicked, "data"))
           );
+          $("._years_list")[0].classList.add("_calender_display_hidden");
+          $("._months_list")[0].classList.add("_calender_display_hidden");
         }
       }
 
@@ -159,6 +166,8 @@ export class dateSelector {
           this.select_new_date = new Date(
             this._day_selected.setFullYear($attr(_elem_clicked, "data"))
           );
+          $("._years_list")[0].classList.add("_calender_display_hidden");
+          $("._months_list")[0].classList.add("_calender_display_hidden");
         }
       }
 
