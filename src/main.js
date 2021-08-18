@@ -768,7 +768,7 @@ export class dateSelector {
   }
 
   _set_input_value = (value) => {
-    document.querySelector("._date_picker_").value = value;
+    document.querySelector(`.${this.el}`).value = value;
   };
 
   /**
