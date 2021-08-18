@@ -196,6 +196,7 @@
   border: 1px solid var(--_bg_color);
   border-radius: 10px;
   display: flex;
+  align-items: center;
   width: 36px !important;
   height: 36px !important;
   cursor: pointer;
