@@ -199,7 +199,9 @@
   padding: 8px 12px;
   border: 1px solid var(--_bg_color);
   border-radius: 10px;
-  width: 10px;
+  display: flex;
+  width: 36px !important;
+  height: 36px !important;
   cursor: pointer;
   color: var(--_font_color);
   background-color: var(--_bg_color);
