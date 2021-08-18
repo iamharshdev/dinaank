@@ -1,6 +1,6 @@
 {
   "name": "dinaank",
-  "version": "1.0.8",
+  "version": "1.0.81",
   "description": "A minimal date-picker library that just works.",
   "main": "./dist/dinaank.js",
   "scripts": {

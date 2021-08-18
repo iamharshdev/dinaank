@@ -19,13 +19,6 @@ export class dateSelector {
       return new Date(this.getFullYear(), this.getMonth() + 1, 0).getDate();
     };
 
-    /***
-     * set default startYear and endYear to be based on date selected
-     */
-
-    this.startYear = this._current_year() - 50;
-    this.endYear = this._current_year() + 50;
-
     parent_el = $(`.${this.el}`)[0];
 
     // get parent to date input selector
@@ -38,6 +31,7 @@ export class dateSelector {
 
     if (this.readOnlySelector) {
       parent_el.setAttribute("readonly", true);
+      parent_el.style.cursor = "pointer !important;";
     }
 
     // generate dates of the month based on default date
@@ -205,6 +199,7 @@ export class dateSelector {
       "_current_month",
       "_months_list",
       "_years_list",
+      "__svg_icon",
       "_current_year",
     ];
     let _has = true;

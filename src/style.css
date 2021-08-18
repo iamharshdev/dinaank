@@ -149,10 +149,6 @@
   grid-template-columns: 1fr 1fr 1fr;
 }
 
-._years_list {
-  top: 40px;
-}
-
 ._years_list::-webkit-scrollbar,
 ._months_list::-webkit-scrollbar {
   display: none;
