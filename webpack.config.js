@@ -1,7 +1,7 @@
 const path = require("path");
 const CompressionPlugin = require("compression-webpack-plugin");
 module.exports = {
-  target: "web",
+  target: ["web", "es5"],
   entry: {
     index: "./src/main.js",
   },
@@ -18,7 +18,10 @@ module.exports = {
     rules: [
       {
         test: /\.css$/i,
-        use: ["style-loader", "css-loader"],
+        use: [
+          "style-loader",
+          "css-loader",
+        ],
       },
     ],
   },

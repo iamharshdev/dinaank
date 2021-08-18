@@ -771,7 +771,7 @@ export class dateSelector {
     this._set_active_date();
   }
 
-  _set_input_value = (value) => {
+  _set_input_value (value){
     document.querySelector(`.${this.el}`).value = value;
   };
 

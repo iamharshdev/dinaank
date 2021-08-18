@@ -12,7 +12,7 @@ export function appendWidget(parent_element) {
   const _months_list = $create("ul", "_months_list _calender_display_hidden");
   const _calender_header = $create("div", "_calender_header _wid100");
   const _previous_month = $create("div", "_change_month _previous_month");
-  _previous_month.innerHTML = `<svg class="_previous_month" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">${svg_path}</svg>`;
+  _previous_month.innerHTML = `<svg class="_previous_month" width="10" height="10" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">${svg_path}</svg>`;
   const _calender_grid = $create(
     "div",
     "_calender_grid _grid_cols_2 _mx_auto _grid_gap_2"
@@ -20,7 +20,7 @@ export function appendWidget(parent_element) {
   const _current_month = $create("div", "_current_month");
   const _current_year = $create("div", "_current_year");
   const _next_month = $create("div", "_change_month _next_month");
-  _next_month.innerHTML = `<svg class="_next_month" xmlns="http://www.w3.org/2000/svg" style="transform: rotate(180deg)" viewBox="0 0 512 512">${svg_path}</svg>`;
+  _next_month.innerHTML = `<svg class="_next_month" width="10" height="10" xmlns="http://www.w3.org/2000/svg" style="transform: rotate(180deg)" viewBox="0 0 512 512">${svg_path}</svg>`;
   const _years_list = $create("ul", "_years_list _calender_display_hidden");
   const empty = $create("div", "__x__");
   const _week_Days = $create("div", "_week_Days");
