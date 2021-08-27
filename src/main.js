@@ -138,6 +138,12 @@ export class dateSelector {
 
           // select a single date if range selector is disabled
           if (!this.canSelectRange) {
+            // close calender on date selected.
+            if (this.closeOnSelect) {
+              setTimeout(() => {
+                $class($("._calender_dialog")[0], "_calender_display_hidden");
+              }, 200);
+            }
             this.select_new_date = date_clicked;
           }
         }
@@ -771,9 +777,9 @@ export class dateSelector {
     this._set_active_date();
   }
 
-  _set_input_value (value){
+  _set_input_value(value) {
     document.querySelector(`.${this.el}`).value = value;
-  };
+  }
 
   /**
    * This creates the calender widget and push it to DOM

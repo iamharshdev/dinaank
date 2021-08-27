@@ -244,6 +244,16 @@ const picker = new dinaank.dateSelector({
 });
 ```
 
+**closeOnSelect**
+Calender widget/popup closes by default on date select you can disable this feature by passing a `closeOnSelect: false` with options.
+
+```js
+const picker = new dinaank.dateSelector({
+  el: "_date_picker_",
+  closeOnSelect: false, // defaults to true
+});
+```
+
 **MIT License**
 
 Copyright (c) 2021 Harsh Vardhan Goswami

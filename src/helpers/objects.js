@@ -26,6 +26,7 @@ const defaults = () => {
     _date_selector: "._date_selectors",
     months: [],
     _day_selected: new Date(),
+    closeOnSelect: true,
   };
 };
 
