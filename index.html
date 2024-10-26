@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DateSelector Test</title>
+    <link rel="stylesheet" href="dist/dinaank.css" />
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        background-color: #f0f0f0;
+      }
+      #date-selector-container {
+        background-color: white;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      }
+      #selected-date {
+        margin-top: 20px;
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="date-selector-container">
+      <h2>Date Selector Test</h2>
+      <div id="date-selector-form">
+        <input type="text" name="date-selector" id="date-selector" />
+        <input type="text" name="date-selector-2" id="date-selector-2" />
+      </form>
+      <div id="selected-date"></div>
+    </div>
+
+    <script src="dist/dinaank.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const selectedDateDisplay = document.getElementById("selected-date");
+
+        const dateSelector = new Dinaank({
+          el: "#date-selector",
+          canSelectRange: true,
+          minDate: new Date("2024-11-01"),
+          maxDate: new Date("2024-11-30"),
+          theme: "dark",
+          colors: {
+            primary: "#000",
+            secondary: "#6c757d",
+            background: "#f8f9fa",
+          },
+          onChange: (selectedDate) => {
+            console.log(
+              "📅 test-date-selector.html, line 40, onChange; selectedDate:",
+              selectedDate
+            );
+            selectedDateDisplay.textContent = `Selected Date: ${selectedDate.toDateString()}`;
+          },
+        });
+
+
+        const dateSelector2 = new Dinaank({
+          el: "#date-selector-2",
+          onChange: (selectedDate) => {
+            console.log(
+          "🚀 test-date-selector.html, line 45, initial state; dateSelector:",
+              dateSelector2
+            );
+          },
+        });
+      });
+    </script>
+  </body>
+</html>

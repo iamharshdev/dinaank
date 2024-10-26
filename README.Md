@@ -1,277 +1,73 @@
-# dinaank
+# 📅 Dinaank: Where Dates Dance in JavaScript/Typescript or maybe in your mind
 
-Select a date with JavaScript, but that's not the only thing you can do with it. Dinaank has no dependencies and weighs in at 4.9kb gzipped! Dinaank is simple to use and looks clean and minimal. A calendar pops up and you pick a date. That's it.
+Imagine a world where selecting dates isn't a chore, but a delightful dance of digits. Welcome to Dinaank, the featherweight champion of date pickers! Weighing in at a mere 4.9kb gzipped, this nimble library pirouettes through your code with zero dependencies.
 
-<ul style="list-style-type:none;display:flex;">
-  <li><img src="https://raw.githubusercontent.com/iamharshdev/dinaank/master/screenshots/Screenshot_4.png"></li>
-  <li><img src="https://raw.githubusercontent.com/iamharshdev/dinaank/master/screenshots/Screenshot_5.png"></li>
-  <li><img src="https://raw.githubusercontent.com/iamharshdev/dinaank/master/screenshots/Screenshot_6.png"></li>
-</ul>
+## 🎭 A Calendar's Soliloquy
 
-## Installation
+Dinaank doesn't just appear; it performs. With a flourish, a calendar materializes before your eyes. You, the director, simply point to a date, and the show concludes. Bravo! 👏
 
-### Manually
+<div style="display: flex; justify-content: space-around;">
+  <img src="https://raw.githubusercontent.com/iamharshdev/dinaank/master/screenshots/Screenshot_4.png" width="30%">
+  <img src="https://raw.githubusercontent.com/iamharshdev/dinaank/master/screenshots/Screenshot_5.png" width="30%">
+  <img src="https://raw.githubusercontent.com/iamharshdev/dinaank/master/screenshots/Screenshot_6.png" width="30%">
+</div>
 
-Simply include dinaank.js cdn url in the head
+## 🎭 The Grand Entrance
+
+### 🎟️ Via the Royal Decree (Manual Installation)
+
+Summon Dinaank with a mere whisper in your HTML's head:
 
 ```html
-<script src="dinaank.js"></script>
-
-<!-- Or remotely via Unpkg CDN -->
-
 <script src="https://unpkg.com/dinaank"></script>
 ```
 
-If you have downloaded the package via zip file from Github, these files are located in the dist folder. Otherwise, you can use the Unpkg CDN as shown in the examples above.
-
-### Via npm/yarn
+### 🧙‍♂️ Through Mystical Incantations (npm/yarn)
 
 ```sh
-# using npn
-npm install dinaank
-
-# using yarn
-yarn add dinaank
+npm install dinaank  # The npm spell
+yarn add dinaank     # The yarn enchantment
 ```
 
-## Basic Usage
+## 🎨 Painting with Time
 
-Importing the library if you're using it in Node:
-
-```js
-const dinaank = require("dinaank");
-```
-
-Using in code
+Dinaank is your canvas, and dates are your palette. Let's create a masterpiece:
 
 ```js
-/*
- * Selector can only be inform of class name without '.' or '#'
- * options is object of options see options section for more information.
- */
-new dinaank.dateSelector({
-  el: selector,
-  options,
-});
-```
-
-## Options - Event Callbacks
-
-Use these options if you want to fire off your own functions after something happens with the calendar.
-
-### onChange
-
-Callback function after a date is selected or changed by the user. It has one argument and that is date use it the way you like it.
-
-```js
-const picker = new dinaank.dateSelector({
-  el: "_date_picker",
-  onChange: (date) => {
-    // do stuff with the selected date on the calender
+const timePainter = new Dinaank({
+  el: '.canvas_of_time',
+  onChange: (chosenMoment) => {
+    console.log(`A moment in time was captured: ${chosenMoment}`);
   },
-});
-```
-
-## Options - customization
-
-**Colors/Mode**
-<br>
-Define calender colors and mode.
-
-<img src=".https://raw.githubusercontent.com/iamharshdev/dinaank/master/screenshots/Screenshot_4.png">
-<img src="https://raw.githubusercontent.com/iamharshdev/dinaank/master/screenshots/Screenshot_7.png">
-
-### **Custom color**
-
-<img src="https://raw.githubusercontent.com/iamharshdev/dinaank/master/screenshots/Screenshot_11.png">
-
-```js
-const picker = new dinaank.dateSelector({
-  el: "_date_picker",
-  theme: "dark", // default theme is dark. Use dark or light
+  theme: 'dark',  // For those who paint with starlight
   colors: {
-    hover: "cyan", // default colors dark: #2c437a , light: #ffab91
-    active: "blue", // default colors dark: #1f5eff , light: #f4511e
+    hover: 'cyan',    // The shimmer of possibility
+    active: 'blue',   // The depth of decision
   },
+  startYear: 1992,    // Begin your journey
+  endYear: 2045,      // ...and where it might lead
+  minDate: new Date('2024-01-01'), // Create a safe haven in the timestream
+  maxDate: new Date('2024-12-31'), // ...and where it might lead
 });
 ```
 
-**startYear,**
-**endYear**
-<br>
-You can customize the list of years start year, not only start year you can also customize the list end year. See example below.
+## 🌈 A Spectrum of Possibilities
 
-```js
-const picker = new dinaank.dateSelector({
-  el: "_date_picker",
-  startYear: 1992, // default currentYear - 80
-  endYear: 2045, // default currentYear + 40
-});
-```
+Dinaank isn't just a date picker; it's a time traveler's toolkit:
 
-**Events**
-<br>
-An range of dates which indicate something is happening - a meeting, birthday, etc. I.e. an event.
+- **🎨 Themes**: Light for sun-chasers, dark for night owls
+- **📅 Custom Ranges**: Set the boundaries of your temporal playground
+- **🎉 Events**: Mark the days that sparkle with significance
+- **🔒 Min/Max Dates**: Create a safe haven in the timestream
+- **🌍 Localization**: Speak the language of time in any tongue
+- **↔️ Date Ranges**: For those who think in spans, not points
 
-<img src="https://raw.githubusercontent.com/iamharshdev/dinaank/master/screenshots/Screenshot_9.png">
+## 🎭 The Final Act
 
-```js
-const picker = new dinaank.dateSelector({
-  el: "_date_picker",
-  events: {
-    start: new Date(2020, 10, 1),
-    end: new Date(2021, 1, 1),
-  }, // defaults to null
-});
-```
+Dinaank is more than code; it's poetry in motion, a ballet of bytes. It turns the mundane act of choosing a date into a celebration of possibility.
 
-**Date Selected**
+So go forth, temporal artist! Paint your web pages with the brushstrokes of time itself. Let Dinaank be your muse, your stage, and your standing ovation.
 
-This will start the calender with a date already selected.
+---
 
-<img src="https://raw.githubusercontent.com/iamharshdev/dinaank/master/screenshots/Screenshot_7.png">
-
-```js
-const picker = new dinaank.dateSelector({
-  el: "_date_picker",
-  _day_selected: new Date(2099, 10, 1),
-  // defaults to new Date() i.e. today's date
-});
-```
-
-**minDate**
-
-This will be the minumum threshold of selectable dates. Anything prior will be unselectable.
-
-<img src="https://raw.githubusercontent.com/iamharshdev/dinaank/master/screenshots/Screenshot_10.png">
-
-```js
-const picker = new dinaank.dateSelector({
-  el: "_date_picker",
-  minDate: new Date(2099, 10, 1), // defaults to null
-});
-```
-
-**maxDate**
-
-This will be the maximum threshold of selectable dates. Anything after it will be unselectable.
-
-```js
-const picker = new dinaank.dateSelector({
-  el: "_date_picker",
-  maxDate: new Date(2099, 10, 1), // defaults to null
-});
-```
-
-**minDate and maxDate can also be used together**
-
-<img src="https://raw.githubusercontent.com/iamharshdev/dinaank/master/screenshots/Screenshot_10.png">
-
-```js
-const picker = new dinaank.dateSelector({
-  el: "_date_picker",
-  minDate: new Date(2021, 10, 1), // defaults to null
-  maxDate: new Date(2099, 10, 1), // defaults to null
-});
-```
-
-**months**
-
-You can customize the display of the months name at the top of the calender widget by providing an array of 12 strings in the order written below:
-
-<img src="https://raw.githubusercontent.com/iamharshdev/dinaank/master/screenshots/custom_months.png">
-
-```js
-const picker = new dinaank.dateSelector({
-  months: [
-    "😀",
-    "😂",
-    "😎",
-    "😍",
-    "🤩",
-    "😜",
-    "😬",
-    "😳",
-    "🤪",
-    "🤓 ",
-    "😝",
-    "😮",
-  ],
-  // default [ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
-});
-```
-
-**week days**
-
-You can customize the display of the week days at the top of the calender widget by providing an array of 7 strings in the order written below:
-
-```js
-const picker = new dinaank.dateSelector({
-  weekdays: ["😌", "🥶", "😌", "😐", "😝", "🤧", "😍"],
-  // default ["Su","Mo","Tu","We","Th","Fr","Sa"]
-});
-```
-
-**readOnlySelector**
-
-This will make input selector readonly means user won't be able to type anything thus preventing invalid dates entered by user.
-
-```js
-const picker = new dinaank.dateSelector({
-  el: "_date_picker",
-  readOnlySelector: false, // defaults to true
-});
-```
-
-**date range selection**
-
-You can also use our date range picker calender. It's simple to implement just pass canSelectRange as true in options while calling the constructor.
-
-<img src="https://raw.githubusercontent.com/iamharshdev/dinaank/master/screenshots/Screenshot_5.png">
-
-```js
-const picker = new dinaank.dateSelector({
-  el: "_date_picker_",
-  canSelectRange: true, // defaults to false
-  onChange: (date, rangeSelected) => {
-    // here date will be new Date()
-    // rangeSelected is a object with start and end dates selected by user
-    /**
-     * { start: new Date(), end: new Date() }
-    */
-    console.log(rangeSelected);
-  },
-});
-```
-
-**closeOnSelect**
-Calender widget/popup closes by default on date select you can disable this feature by passing a `closeOnSelect: false` with options.
-
-```js
-const picker = new dinaank.dateSelector({
-  el: "_date_picker_",
-  closeOnSelect: false, // defaults to true
-});
-```
-
-**MIT License**
-
-Copyright (c) 2021 Harsh Vardhan Goswami
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+<sub>Crafted with ❤️ and a sprinkle of stardust by Harsh Vardhan Goswami. Under the benevolent gaze of the MIT License.</sub>
