@@ -1,8 +1,8 @@
 {
   "name": "dinaank",
-  "version": "2.0.0",
-  "main": "dist/date-selector.js",
-  "module": "dist/date-selector.esm.js",
+  "version": "2.0.1",
+  "main": "dist/dinaank.js",
+  "module": "dist/dinaank.esm.js",
   "types": "dist/types/main.d.ts",
   "scripts": {
     "build": "rollup -c --environment NODE_ENV:production",
